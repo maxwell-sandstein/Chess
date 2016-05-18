@@ -45,7 +45,7 @@ require_relative "board"
 class Display
   include Cursorable
   attr_accessor :board
-  def initialize(board = Board.new)
+  def initialize(board = Board.fresh_board)
     @board = board
     @cursor_pos = [7, 0]
   end
@@ -73,7 +73,9 @@ class Display
 
     board.move(from, to)
     render #please comment out
-    sleep(5)
+    puts board.in_check?(:white)
+    puts board.checkmate?(:white)  
+    sleep(1)
   end
 
   def build_row(row, i)
@@ -125,4 +127,6 @@ end
 # a = Display.new
 # a.testing
 displayboardtest= Display.new
-displayboardtest.facilitate_play_turn
+loop do
+ displayboardtest.facilitate_play_turn
+end

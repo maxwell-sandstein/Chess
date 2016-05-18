@@ -3,7 +3,7 @@ class Game
   attr_accessor :board, :display, :turn
 
   def initialize
-    @board = Board.new
+    @board = Board.fresh_board
     @display = Display.new(board)
   end
 
@@ -19,8 +19,10 @@ class Game
      display.facilitate_play_turn
     rescue NoPiece => e
         puts e.message
+        retry
     rescue ImpossibleMove => e
         puts e.message
+        retry
     end
 
     change_turn
